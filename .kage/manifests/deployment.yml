@@ -42,8 +42,6 @@ spec:
               value: 'false'
             - name: API_USER_AGENT
               value: switcharoo-reddit
-            - name: API_USER_AGENT
-              value: switcharoo-reddit
           ports:
             - containerPort: 4444
           readinessProbe:
