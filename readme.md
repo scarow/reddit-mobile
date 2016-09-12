@@ -48,5 +48,5 @@ Getting Up and Running
   production: `npm run server`
 
 #### Helpful chrome extensions:
-- React Developer Tools
-- Redux DevTools
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+- [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
