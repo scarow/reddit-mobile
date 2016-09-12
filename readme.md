@@ -8,7 +8,7 @@ explanation of how everything fits together.
 Getting Up and Running
 ----------------------
 
-0. Install [node.js](https://nodejs.org/download/) v4.2 and npm 3.5
+0. Install [node.js](https://nodejs.org/download/) and npm
 1. [Fork](https://github.com/reddit/reddit-mobile/fork) and clone
   this project.
 2. Run `npm install` to install other dependencies.
@@ -25,20 +25,16 @@ Getting Up and Running
 	```sh
 	#!/bin/bash
 	GOOGLE_ANALYTICS_ID='UA-XXXXXX-1' \
-	LIVERELOAD=true \
-	DEBUG_LEVEL='info' \
 	OAUTH_CLIENT_ID=XXXXXXXXX \
 	SECRET_OAUTH_CLIENT_ID=XXXXXXXXX \
 	OAUTH_SECRET=XXXXXXXXX \
 	PROCESSES=2 \
 	API_PASS_THROUGH_HEADERS='accept-language' \
-	LOGIN_PATH="/login" \
 	MINIFY_ASSETS="false" \
-	STATSD_DEBUG="true" \
 	npm run dev-server
 	```
 
-7. If you need to work on dependencies (snoode, horse-react, etc):
+7. If you need to work on dependencies (node-apiclient, node-platform, etc):
     1. Delete the dependencies you installed from ./node_modules
     2. Fork and clone the dependencies somewhere
     3. Run `npm link` within the dependency that you cloned
