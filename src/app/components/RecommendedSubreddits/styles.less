@@ -1,0 +1,124 @@
+@import (reference) '~app/less/variables';
+@import (reference) '~app/less/themes/themeify';
+@community-icon-size: 50px;
+@community-icon-half-size: floor(@community-icon-size / 2);
+@spacer: @grid-size + @half-grid-size;
+
+.RecommendedSubredditsBottom__wrapper {
+    a.listing-comment-collapsed-more {
+		font-family: Helvetica Neue;
+		font-weight: bold;
+		font-size: 11pt;
+		color: white;
+		text-transform: uppercase;
+		background: #24A0ED;
+		display: block;
+	    padding: 17px;
+	    text-align: center;
+	    letter-spacing: 1;
+	}
+}
+
+.RecommendedSubreddits__button_wrapper {
+	background: #FCFCFB;
+	display: block;
+	padding: 15px;
+}
+
+.RecommendedSubreddits__container {
+	background: #F5F5F5;
+	padding-bottom: 20px;
+	font-family: Helvetica Neue;
+	font-weight: 500;
+	font-size: 16pt;
+
+	.subreddit-icon-image {
+		width: @community-icon-size;
+		height: @community-icon-size;
+		float: left;
+		margin-right: 25px;
+
+		border-radius: @community-icon-half-size;
+		border: 1px solid @white;
+		background: url(/img/snoo-128.png);
+		background-color: inherit;
+		background-size: @community-icon-size @community-icon-size;
+		background-repeat: no-repeat;
+		background-position: -1px 8px;
+	}
+
+	&.sr-header {
+		padding-bottom: 0px;
+	}
+
+	.RecommendedSubreddits__title {
+		margin: 0px 40px;
+		padding: 10px 10px 0px 10px;
+		text-align: center;
+		color: #4A4A4A;
+	}
+
+		.title-text {
+			padding: 10px;
+		}
+
+	hr {
+		display: block;
+	    height: 1px;
+	    border: 0;
+	    border-top: 1px solid #DFDFDD;
+	    padding: 0;
+	    width: 90%;
+	}
+
+	.sr-url {
+		color: #0079D3;
+	}
+
+	.sr-subscriber-count {
+		font-family: Helvetica Neue;
+		font-weight: regular;
+		font-size: 12pt;
+		color: #A5A4A4;
+	}
+}
+
+.RecommendedSubreddits__bottom, .RecommendedSubreddits__top {
+	margin: 0px 10px;
+	padding: 12px 5px;
+}
+
+.RecommendedSubreddits__top-plain {
+	padding: 5px 20px;
+
+	hr {
+		border-top: 1px solid #EFEFED;
+	}
+}
+
+.RecommendedSubreddits__header {
+	background: #0079D3;
+	text-transform: uppercase;
+	padding: 15px;
+	text-align: center;
+	letter-spacing: 1;
+	font-weight: 500;
+
+	a.sr-url {
+		color: white;
+	}
+}
+
+@media screen and (min-width: 320px) {
+    .RecommendedSubreddits__container {
+        font-size: 15px;
+    }
+
+}
+
+@media screen and (min-width: 360px) {
+	.RecommendedSubreddits__title {
+		font-size: 16px;
+	}
+}
+
