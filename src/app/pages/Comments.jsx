@@ -15,7 +15,6 @@ import CommentsPageTools from 'app/components/CommentsPage/CommentsPageTools';
 import GoogleCarouselMetadata from 'app/components/GoogleCarouselMetadata';
 import Post from 'app/components/Post';
 import Loading from 'app/components/Loading';
-import LoadMoreCommentsButton from 'app/components/LoadMoreCommentsButton';
 import SubNav from 'app/components/SubNav';
 import RelevantContent from 'app/components/RelevantContent';
 import { RecommendedSubreddits } from 'app/components/RecommendedSubreddits';
