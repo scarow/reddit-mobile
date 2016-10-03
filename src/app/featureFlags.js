@@ -28,7 +28,7 @@ const config = {
   [VARIANT_RECOMMENDED_BOTTOM]: {
     url: 'experimentrecommendedbottom',
     and: [{
-      variant: 'recommended_mweb:bottom',
+      variant: 'recommended_srs:bottom',
     }, {
       loggedin: false,
     }, {
@@ -38,7 +38,7 @@ const config = {
   [VARIANT_RECOMMENDED_TOP]: {
     url: 'experimentrecommendedtop',
     and: [{
-      variant: 'recommended_mweb:top',
+      variant: 'recommended_srs:top',
     }, {
       loggedin: false,
     }, {
@@ -48,7 +48,7 @@ const config = {
   [VARIANT_RECOMMENDED_TOP_PLAIN]: {
     url: 'experimentrecommendedtopplain',
     and: [{
-      variant: 'recommended_mweb:top-plain',
+      variant: 'recommended_srs:plain_list_top',
     }, {
       loggedin: false,
     }, {
@@ -58,7 +58,7 @@ const config = {
   [VARIANT_SUBREDDIT_HEADER]: {
     url: 'experimentsubredditheader',
     and: [{
-      variant: 'recommended_mweb:sr-header',
+      variant: 'recommended_srs:sr_name_top',
     }, {
       loggedin: false,
     }, {
