@@ -245,7 +245,7 @@ class _CommentsPage extends React.Component {
           ? <Loading />
           : <CommentsList
               op={ op }
-              commentRecords={ topLevelComments }
+              commentRecords={ abbreviatedComments ? abbreviatedComments : topLevelComments }
               className='CommentsList__topLevel'
               nestingLevel={ 0 }
             />
