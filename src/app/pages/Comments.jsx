@@ -272,14 +272,13 @@ class _CommentsPage extends React.Component {
           shouldAbbreviateComments && hasRecommendations &&
           (<div className='RecommendedSubredditsBottom__wrapper'>
             <div className='RecommendedSubreddits__button_wrapper'>
-              <a
+              <button
                 className='listing-comment-collapsed-more'
                 onClick={ this.expandComments }
-                href='#'
                 key='comment-collapsed-more'
               >
                 View More Comments
-              </a>
+              </button>
             </div>
             <RecommendedSubreddits
               cssClass='RecommendedSubreddits__bottom'
