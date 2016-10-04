@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
+import cx from 'lib/classNames';
 import map from 'lodash/map';
 import url from 'url';
 
@@ -21,15 +22,15 @@ export const RecommendedSubreddits = (props) => {
     </div>
   );
 
-  if (variant == 'topPlain'){
+  if (variant === 'topPlain'){
     subredditListing = map(recommendedSubreddits, (sr, index) => {
       return (
         <div className={ cssClass }>
           <a href={addUtmTracking(sr.url, index, variant)} className='sr-url'> { formatSubredditHref(sr.url) } </a>
         </div>
-      )
-    })
-  } else if (variant == 'subredditHeader'){
+      );
+    });
+  } else if (variant === 'subredditHeader'){
     title = null;
     subredditHeader = true;
     subredditListing = (
@@ -45,12 +46,12 @@ export const RecommendedSubreddits = (props) => {
           <a href={addUtmTracking(sr.url, index, variant)} className='sr-url'> { formatSubredditHref(sr.url) } </a>
           <div className='sr-subscriber-count'> { Number(sr.subscribers).toLocaleString('en') } { sr.subscribers > 1 ? 'subscribers' : 'subscriber' } </div>
         </div>
-      )
-    })
+      );
+    });
   }
 
   return (
-    <div className={'RecommendedSubreddits__container' + (subredditHeader ? ' sr-header' : '')}>
+    <div className={cx('RecommendedSubreddits__container', { 'sr-header' : subredditHeader })}>
       { title }
       { subredditListing }
     </div>
@@ -75,9 +76,7 @@ function addUtmTracking(urlString, position, variant) {
   });
 };
 
-function formatSubredditHref(url){
+formatSubredditHref(url) {
   // remove leading & trailing slash if they exist
-  let formattedUrl = url.replace(/^\//, "");
-  formattedUrl = formattedUrl.replace(/\/$/, "");
-  return formattedUrl;
+  return url.replace(/^\//, '').replace(/\/$/, '');
 };
