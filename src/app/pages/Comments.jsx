@@ -51,16 +51,9 @@ const stateProps = createSelector(
     const post = posts[commentsPageParams.id];
     const postLoaded = !!post;
     const replying = currentPage.queryParams.commentReply === commentsPageParams.id;
-    const recommendedSubreddits = [];
 
-    if (Object.keys(recommendedSrs).length > 0){
-      const recommendedSubredditNames = recommendedSrs[currentPage.urlParams.subredditName];
-      if (recommendedSubredditNames){
-        recommendedSubredditNames.forEach(function(name){
-          recommendedSubreddits.push(subreddits[name]);
-        });
-      }
-    }
+    const recommendedSubredditNames = recommendedSrs[currentPage.urlParams.subredditName] || [];
+    const recommendedSubreddits = recommendedSubredditNames.map(name => subreddits[name])
 
     const currentSubreddit = subreddits[currentPage.urlParams.subredditName]
 
