@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 import cx from 'lib/classNames';
-import map from 'lodash/map';
 import url from 'url';
 
 export const RecommendedSubreddits = (props) => {
@@ -23,7 +22,7 @@ export const RecommendedSubreddits = (props) => {
   );
 
   if (variant === 'topPlain'){
-    subredditListing = map(recommendedSubreddits, (sr, index) => {
+    subredditListing = recommendedSubreddits.map(function(sr, index){
       return (
         <div className={ cssClass }>
           <a href={addUtmTracking(sr.url, index, variant)} className='sr-url'> { formatSubredditHref(sr.url) } </a>
@@ -39,7 +38,7 @@ export const RecommendedSubreddits = (props) => {
       </div>
     );
   } else {
-    subredditListing = map(recommendedSubreddits, (sr, index) => {
+    subredditListing = recommendedSubreddits.map(function(sr, index){
       return (
         <div className={ cssClass }>
           <div className='subreddit-icon-image' style={ sr.iconImage ? { 'backgroundImage': `url(${sr.iconImage})`, 'backgroundPosition': '-1px 0px' } : {} }/>
