@@ -76,7 +76,7 @@ function addUtmTracking(urlString, position, variant) {
   });
 };
 
-formatSubredditHref(url) {
+function formatSubredditHref(url){
   // remove leading & trailing slash if they exist
   return url.replace(/^\//, '').replace(/\/$/, '');
 };
