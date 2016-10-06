@@ -53,9 +53,9 @@ const stateProps = createSelector(
     const replying = currentPage.queryParams.commentReply === commentsPageParams.id;
 
     const recommendedSubredditNames = recommendedSrs[currentPage.urlParams.subredditName] || [];
-    const recommendedSubreddits = recommendedSubredditNames.map(name => subreddits[name])
+    const recommendedSubreddits = recommendedSubredditNames.map(name => subreddits[name]);
 
-    const currentSubreddit = subreddits[currentPage.urlParams.subredditName]
+    const currentSubreddit = subreddits[currentPage.urlParams.subredditName];
 
     return {
       op: postLoaded ? post.author : '',
