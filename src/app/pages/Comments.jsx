@@ -132,13 +132,26 @@ class _CommentsPage extends React.Component {
     this.setState({ expandComments: true });
   }
 
+  // Takes a maximum count and an array of trees.
+  // Returns a count of items in the resulting trees and an array of the
+  // truncated trees.
+  //
+  // This truncates the set of comment trees to a maximum count (array of
+  // top-level comments is an array of trees). Walks the comments depth-first
+  // until we have the max number of items (or else returns all items).
   limitTrees(limit, trees) {
+    // If we want 0 items or don't have any comment trees, then we're done.
     if (limit === 0 || !trees || trees.length === 0) {
       return [0, []];
     }
     const first = trees[0];
     const rest = trees.slice(1);
+    // Walk the first tree, pruning it to have at most limit items. We receive
+    // a count because the tree may have had fewer than limit items to begin
+    // with.
     const [count, pruned] = this.limitTree(limit, first);
+    // If we haven't hit our limit, then walk the other trees and keep just
+    // enough items to get us to the limit.
     if (limit > count) {
       const [restCount, restPruned] = this.limitTrees(limit - count, rest);
       return [count + restCount, [pruned].concat(restPruned)];
@@ -146,12 +159,20 @@ class _CommentsPage extends React.Component {
     return [count, [pruned]];
   }
 
+  // Takes a maximum count and a single comment tree. Prunes the tree to have
+  // at most limit items.
+  // Returns the actual number of items in the pruned tree as well as the
+  // pruned comment tree.
   limitTree(limit, tree) {
     if (limit === 0) {
       return [0, null];
     } else if (limit === 1) {
+      // If we only want one item, then we can just keep the root node and
+      // throw away the replies.
       return [1, { ...tree, replies: [] }];
     }
+    // tree.replies is an array of comment trees, so we continue by pruning
+    // that set and replacing the original replies.
     const [count, children] = this.limitTrees(limit - 1, tree.replies);
     return [count + 1, { ...tree, replies: children }];
   }
