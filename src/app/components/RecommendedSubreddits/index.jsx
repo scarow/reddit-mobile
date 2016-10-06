@@ -12,14 +12,12 @@ export const RecommendedSubreddits = (props) => {
 
   let subredditListing, subredditHeader;
 
-  let title = (
-    <div>
-      <div className='RecommendedSubreddits__title'>
-        <div className='title-text'> Recommended Communities </div>
-      </div>
-      <hr/>
-    </div>
-  );
+  let title = [
+    <div className='RecommendedSubreddits__title'>
+      <div className='title-text'> Recommended Communities </div>
+    </div>,
+    <hr/>
+  ];
 
   if (variant === 'topPlain'){
     subredditListing = recommendedSubreddits.map(function(sr, index){
