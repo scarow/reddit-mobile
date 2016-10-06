@@ -206,7 +206,7 @@ class _CommentsPage extends React.Component {
     const hasRecommendations = recommendedSubreddits.length > 0 ? true : false;
     let abbreviatedComments;
 
-    if (shouldAbbreviateComments){
+    if (shouldAbbreviateComments) {
       abbreviatedComments = this.limitTrees(3, topLevelComments)[1];
     }
 
