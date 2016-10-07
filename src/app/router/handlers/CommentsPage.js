@@ -106,7 +106,7 @@ export default class CommentsPage extends BaseHandler {
   }
 }
 
-function fetchRecommendedSubreddits(state, dispatch, subredditName){
+const fetchRecommendedSubreddits = (state, dispatch, subredditName) => {
   const feature = features.withContext({ state });
 
   if (feature.enabled(VARIANT_SUBREDDIT_HEADER)){
