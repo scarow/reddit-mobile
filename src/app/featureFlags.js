@@ -127,7 +127,7 @@ flags.addRule('variant', function (name) {
   return false;
 });
 
-flags.addRule('seoReferrer', function(wantSEO) {
+flags.addRule('seoReferrer', wantSEO => {
   // Make sure we have a referrer and from the outside
   const referrer = this.props.ctx.referrer;
   if (!referrer || !referrer.startsWith('http')) {
