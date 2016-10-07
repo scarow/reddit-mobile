@@ -3,6 +3,7 @@ import './styles.less';
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { Anchor } from '@r/platform/components';
 
 import cx from 'lib/classNames';
 import url from 'url';
@@ -14,41 +15,58 @@ export const RecommendedSubreddits = (props) => {
 
   let title = [
     <div className='RecommendedSubreddits__title'>
-      <div className='title-text'> Recommended Communities </div>
+      <div className='title-text'>Recommended Communities</div>
     </div>,
     <hr/>
   ];
 
-  if (variant === 'topPlain'){
-    subredditListing = recommendedSubreddits.map(function(sr, index){
+  if (variant === 'topPlain') {
+    subredditListing = recommendedSubreddits.map((sr, index) => {
       return (
         <div className={ cssClass }>
-          <a href={addUtmTracking(sr.url, index, variant)} className='sr-url'> { formatSubredditHref(sr.url) } </a>
+          <Anchor href={addUtmTracking(sr.url, index, variant)}
+             className='sr-url'>
+            { formatSubredditHref(sr.url) }
+          </Anchor>
         </div>
       );
     });
-  } else if (variant === 'subredditHeader'){
+  } else if (variant === 'subredditHeader') {
     title = null;
     subredditHeader = true;
     subredditListing = (
       <div className={ cssClass }>
-        <a href={addUtmTracking(currentSubreddit.url, 0, variant)} className='sr-url'> { 'See more at ' + formatSubredditHref(currentSubreddit.url) } </a>
+        <Anchor href={addUtmTracking(currentSubreddit.url, 0, variant)}
+           className='sr-url'>
+          { 'See more at ' + formatSubredditHref(currentSubreddit.url) }
+        </Anchor>
       </div>
     );
   } else {
-    subredditListing = recommendedSubreddits.map(function(sr, index){
+    subredditListing = recommendedSubreddits.map((sr, index) => {
       return (
         <div className={ cssClass }>
-          <div className='subreddit-icon-image' style={ sr.iconImage ? { 'backgroundImage': `url(${sr.iconImage})`, 'backgroundPosition': '-1px 0px' } : {} }/>
-          <a href={addUtmTracking(sr.url, index, variant)} className='sr-url'> { formatSubredditHref(sr.url) } </a>
-          <div className='sr-subscriber-count'> { Number(sr.subscribers).toLocaleString('en') } { sr.subscribers > 1 ? 'subscribers' : 'subscriber' } </div>
+          <div className='subreddit-icon-image'
+               style={ sr.iconImage
+                       ? { 'backgroundImage': `url(${sr.iconImage})`,
+                           'backgroundPosition': '-1px 0px' }
+                       : {}
+                     }
+          />
+          <Anchor href={addUtmTracking(sr.url, index, variant)}
+             className='sr-url'>{ formatSubredditHref(sr.url) }
+          </Anchor>
+          <div className='sr-subscriber-count'>
+            { Number(sr.subscribers).toLocaleString('en') } { sr.subscribers > 1 ? 'subscribers' : 'subscriber' }
+          </div>
         </div>
       );
     });
   }
 
   return (
-    <div className={cx('RecommendedSubreddits__container', { 'sr-header' : subredditHeader })}>
+    <div className={cx('RecommendedSubreddits__container',
+                       { 'sr-header' : subredditHeader })}>
       { title }
       { subredditListing }
     </div>
@@ -56,7 +74,7 @@ export const RecommendedSubreddits = (props) => {
 };
 
 
-function addUtmTracking(urlString, position, variant) {
+const addUtmTracking = (urlString, position, variant) => {
   const urlObject = url.parse(urlString, true);
 
   return url.format({
@@ -73,7 +91,7 @@ function addUtmTracking(urlString, position, variant) {
   });
 };
 
-function formatSubredditHref(url){
+const formatSubredditHref = (url) => {
   // remove leading & trailing slash if they exist
   return url.replace(/^\//, '').replace(/\/$/, '');
 };
