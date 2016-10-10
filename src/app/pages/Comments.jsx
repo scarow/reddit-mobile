@@ -135,31 +135,59 @@ class _CommentsPage extends React.Component {
     this.setState({ expandComments: true });
   }
 
+  // Takes a map from node ID to node, a maximum count, and an array of trees.
+  // Returns a count of items in the resulting trees and an array of truncated trees.
+  //
+  // This truncates the set of comment trees to a maximum count (the array of
+  // top-level comments is implicitly an array of trees). Walks the comments
+  // depth-first until we have the max number of items (or else returns all the
+  // items).
+  //
+  // Comments reference their children by ID rather than by directly listing
+  // the child objects in the replies array. So we need to use the nodeMap to
+  // follow the parent->child pointers. The resulting tree uses direct
+  // references to children rather than indirection through the nodeMap, so
+  // that we don't have to mutate the original data.
   limitTrees(nodeMap, limit, trees) {
+    // If we want 0 items or don't have any comment trees, then we're done.
     if (limit === 0 || !trees || trees.length === 0) {
       return [0, []];
     }
     const first = trees[0];
     const rest = trees.slice(1);
+    // Walk the first tree, pruning it to have at most limit items. We receive
+    // a count because the tree may have had fewer than limit items to begin
+    // with.
     const [count, pruned] = this.limitTree(nodeMap, limit, first);
+    // If we haven't hit our limit, then walk the other trees and keep just
+    // enough items to get us to the limit.
     if (limit > count) {
       const [restCount, restPruned] = this.limitTrees(nodeMap, limit - count, rest);
       return [count + restCount, [pruned].concat(restPruned)];
     }
     return [count, [pruned]];
- }
+  }
 
+  // Takes a map from node ID to node, a maximum count, and a single comment
+  // tree. Prunes the tree to have at most limit items.
+  // Returns the actual number of items in the pruned tree as well as the
+  // pruned comment tree.
   limitTree(nodeMap, limit, node) {
     const tree = nodeMap[node.uuid];
     if (limit === 0) {
        return [0, null];
-     } else if (limit === 1) {
-       return [1, { ...tree, replies: [] }];
-     }
+    } else if (limit === 1) {
+      // If we only want one item, then we can just keep the root node and
+      // throw away the replies.
+      return [1, { ...tree, replies: [] }];
+    }
+    // tree.replies is an array of comment IDs. We continue by looking up those
+    // IDs to get the full comment objects for each reply, and then we prune
+    // that set and use it to replace the original replies.
     const replies = tree.replies.map(({ uuid }) => nodeMap[uuid]);
     const [count, children] = this.limitTrees(nodeMap, limit - 1, replies);
     return [count + 1, { ...tree, replies: children }];
- }
+  }
 
   render () {
     const {
