@@ -25,21 +25,25 @@ export const failed = (name, error) => ({
   error,
 });
 
-export const fetchRecommendedSubreddits = (subredditName, max_recs=3) => async (dispatch, getState) => {
-  if (isFakeSubreddit(subredditName)) { return; }
+export const fetchRecommendedSubreddits = (subredditName, max_recs=3) =>
+  async (dispatch, getState) => {
+    if (isFakeSubreddit(subredditName)) { return; }
 
-  const state = getState();
-  dispatch(fetching(subredditName));
-  const apiOptions = apiOptionsFromState(state);
+    const state = getState();
+    dispatch(fetching(subredditName));
+    const apiOptions = apiOptionsFromState(state);
 
-  try {
-    const response = await RecommendedSubreddits.get(apiOptions, { subreddit_name: subredditName, experiment_id: 70, max_recs });
-    dispatch(received(subredditName, response));
-  } catch (e) {
-    if (e instanceof ResponseError) {
-      dispatch(failed(subredditName, e));
-    } else {
-      throw e;
+    try {
+      const response = await RecommendedSubreddits.get(
+        apiOptions,
+        { subreddit_name: subredditName, experiment_id: 70, max_recs },
+      );
+      dispatch(received(subredditName, response));
+    } catch (e) {
+      if (e instanceof ResponseError) {
+        dispatch(failed(subredditName, e));
+      } else {
+        throw e;
+      }
     }
-  }
-};
+  };

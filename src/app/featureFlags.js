@@ -1,6 +1,7 @@
 import Flags from '@r/flags';
 
 import getSubreddit from 'lib/getSubredditFromState';
+import url from 'url';
 
 import { flags as flagConstants } from './constants';
 

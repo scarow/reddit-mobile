@@ -147,19 +147,19 @@ class _CommentsPage extends React.Component {
       return [count + restCount, [pruned].concat(restPruned)];
     }
     return [count, [pruned]];
- }
+  }
 
   limitTree(nodeMap, limit, node) {
     const tree = nodeMap[node.uuid];
     if (limit === 0) {
-       return [0, null];
-     } else if (limit === 1) {
-       return [1, { ...tree, replies: [] }];
-     }
+      return [0, null];
+    } else if (limit === 1) {
+      return [1, { ...tree, replies: [] }];
+    }
     const replies = tree.replies.map(({ uuid }) => nodeMap[uuid]);
     const [count, children] = this.limitTrees(nodeMap, limit - 1, replies);
     return [count + 1, { ...tree, replies: children }];
- }
+  }
 
   render () {
     const {
@@ -187,7 +187,10 @@ class _CommentsPage extends React.Component {
       );
     }
 
-    const shouldAbbreviateComments = !this.state.expandComments && feature.enabled(VARIANT_RECOMMENDED_BOTTOM);
+    const shouldAbbreviateComments = (
+      !this.state.expandComments &&
+      feature.enabled(VARIANT_RECOMMENDED_BOTTOM)
+    );
     const hasRecommendations = recommendedSubreddits.length > 0 ? true : false;
     let abbreviatedComments;
 
@@ -225,17 +228,18 @@ class _CommentsPage extends React.Component {
           (<div>
             <RecommendedSubreddits
               cssClass='RecommendedSubreddits__top'
-              recommendedSubreddits={recommendedSubreddits}
+              recommendedSubreddits={ recommendedSubreddits }
               variant='top'
             />
           </div>)
         }
         {
-          feature.enabled(VARIANT_RECOMMENDED_TOP_PLAIN) && hasRecommendations &&
+          feature.enabled(VARIANT_RECOMMENDED_TOP_PLAIN) &&
+          hasRecommendations &&
           (<div>
             <RecommendedSubreddits
               cssClass='RecommendedSubreddits__top-plain'
-              recommendedSubreddits={recommendedSubreddits}
+              recommendedSubreddits={ recommendedSubreddits }
               variant='topPlain'
             />
           </div>)
@@ -245,7 +249,9 @@ class _CommentsPage extends React.Component {
           ? <Loading />
           : <CommentsList
               op={ op }
-              commentRecords={ abbreviatedComments ? abbreviatedComments : topLevelComments }
+              commentRecords={ abbreviatedComments
+                               ? abbreviatedComments
+                               : topLevelComments }
               className='CommentsList__topLevel'
               nestingLevel={ 0 }
             />
@@ -281,13 +287,13 @@ class _CommentsPage extends React.Component {
             </div>
             <RecommendedSubreddits
               cssClass='RecommendedSubreddits__bottom'
-              recommendedSubreddits={recommendedSubreddits}
+              recommendedSubreddits={ recommendedSubreddits }
               variant='bottom'
             />
           </div>)
         }
       </div>
-    )
+    );
   }
 }
 

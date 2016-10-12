@@ -9,7 +9,7 @@ createTest({ reducers: { recommendedSubreddits } }, ({ getStore, expect }) => {
     describe('RECEIVED_RECOMMENDED_SUBREDDITS', () => {
       it('should update state with recommended subreddits', () => {
         const SR_NAME = 'wow'; 
-        const REC_SR_LIST = [{ 'uuid': 'pics'}, {'uuid': 'askreddit'}]
+        const REC_SR_LIST = [{ 'uuid': 'pics'}, {'uuid': 'askreddit'}];
 
         const { store } = getStore({
           recommendedSubreddits: null,

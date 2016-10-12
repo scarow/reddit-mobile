@@ -12,8 +12,8 @@ export default (state=DEFAULT, action={}) => {
       // of recommended subreddit names
       // i.e { recommendedSubreddits: { 'askreddit': ['pics', 'wow'] } }
       return merge(state, {
-        [action.subredditName]: action.apiResponse.results.map(function(sr){ return sr.uuid }),
-      })
+        [action.subredditName]: action.apiResponse.results.map(function(sr) { return sr.uuid; }),
+      });
     }
 
     default:
