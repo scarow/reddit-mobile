@@ -79,4 +79,23 @@ flags.addRule('variant', function (name) {
   return false;
 });
 
+// need to keep this function format (not arrow format) to protect
+// the value of 'this'
+flags.addRule('seoReferrer', function (wantSEO) {
+  // Make sure we have a referrer and from the outside
+  const referrer = this.state.platform.currentPage.referrer;
+  if (!referrer || !referrer.startsWith('http')) {
+    return !wantSEO;
+  }
+
+  // Check if the referrer matches the list of hostnames
+  const referrerHostname = url.parse(referrer).hostname;
+  const isSEO = SEO_REFERRERS.some(seo => {
+    return referrerHostname.indexOf(seo) !== -1;
+  });
+
+  // Compare if we want the user to be from SEO or not
+  return (isSEO === wantSEO);
+});
+
 export default flags;
