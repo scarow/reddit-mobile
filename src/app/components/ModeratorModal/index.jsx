@@ -6,7 +6,6 @@ const T = React.PropTypes;
 const T = React.PropTypes;
 
 export function ModeratorModal(props) {
-
   return (
     <div className='ModeratorModalWrapper'>
       <Modal
@@ -26,7 +25,6 @@ ModeratorModal.propTypes = {
   onClick: T.func,
 };
 
-// to do: wait wat dis do again?
 const selector = createSelector(
   (_, props) => props.postId => {
     return {
