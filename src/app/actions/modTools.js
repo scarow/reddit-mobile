@@ -1,8 +1,29 @@
-import { collections, errors } from '@r/api-client';
+import { endpoints, collections, errors } from '@r/api-client';
+const { Modtools } = endpoints;
 const { ModeratingSubreddits } = collections;
 const { ResponseError } = errors;
 
 import { apiOptionsFromState } from 'lib/apiOptionsFromState';
+
+export const remove = (postId, spam) => async (dispatch, getState) => {
+  const apiOptions = apiOptionsFromState(getState());
+
+  try {
+    await Modtools.remove(apiOptions, postId, spam);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const approve = (postId) => async (dispatch, getState) => {
+  const apiOptions = apiOptionsFromState(getState());
+
+  try {
+    await Modtools.approve(apiOptions, postId);
+  } catch (e) {
+    throw e;
+  }
+};
 
 export const FETCHING_MODERATING_SUBREDDITS = 'FETCHING_MODERATING_SUBREDDITS';
 export const fetchingSubs = () => ({
@@ -22,9 +43,9 @@ export const fetchSubsFailed = error => ({
 });
 
 export const fetchModeratingSubreddits = () => async (dispatch, getState) => {
-  const apiOptions = apiOptionsFromState(getState());
-
   const state = getState();
+  const apiOptions = apiOptionsFromState(state);
+
   const subredditsAlreadyFetched = (
     state.moderatingSubreddits.loading === true ||
     state.moderatingSubreddits.responseCode === 200);
