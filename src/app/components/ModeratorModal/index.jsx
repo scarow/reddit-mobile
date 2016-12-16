@@ -1,9 +1,13 @@
 import React from 'react';
 import { Modal } from '@r/widgets/modal';
+import { DropdownRow} from 'app/components/Dropdown';
+
+const T = React.PropTypes;
 
 const T = React.PropTypes;
 
 export function ModeratorModal(props) {
+
   return (
     <div className='ModeratorModalWrapper'>
       <Modal

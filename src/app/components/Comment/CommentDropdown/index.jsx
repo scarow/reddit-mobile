@@ -50,6 +50,7 @@ export default function CommentDropdown(props) {
       </ModeratorModal>
     );
   } else {
+
     modal = (
       <DropdownModal id={ id } onClick={ onToggleModal }>
         { modalContent }
