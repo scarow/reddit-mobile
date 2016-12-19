@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import { Modal } from '@r/widgets/modal';
 import { DropdownRow } from 'app/components/Dropdown';
 
-import * as ModActions from 'app/actions/modTools';
+import * as modActions from 'app/actions/modTools';
 
 const T = React.PropTypes;
 
@@ -17,14 +17,13 @@ export function ModeratorModal(props) {
     onRemove,
     onClick,
     children,
+    id,
   } = props;
-
-  console.log(props)
 
   return (
     <div className='ModeratorModalWrapper'>
       <Modal
-        id={ props.id }
+        id={ id }
         className='DropdownModal ModeratorModal'
       >
         <div onClick={ onClick }>
@@ -46,19 +45,10 @@ ModeratorModal.propTypes = {
   onRemove: T.func.isRequired,
 };
 
-const selector = createSelector(
-  (_, props) => props.id,
-  (id) => {
-    return {
-      id,
-    };
-  }
-);
-
 const mapDispatchToProps = (dispatch, { id }) => ({
   onSpam: () => dispatch(modActions.remove(id, true)),
   onApprove: () => dispatch(modActions.approve(id)),
   onRemove: () => dispatch(modActions.remove(id, false)),
 });
 
-export default connect(selector, mapDispatchToProps)(ModeratorModal);
+export default connect(null, mapDispatchToProps)(ModeratorModal);

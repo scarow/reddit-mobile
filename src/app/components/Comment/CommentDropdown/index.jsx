@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DropdownModal, DropdownRow, DropdownLinkRow } from 'app/components/Dropdown';
-import { ModeratorModal } from 'app/components/ModeratorModal';
+import ModeratorModal from 'app/components/ModeratorModal';
 
 const T = React.PropTypes;
 
