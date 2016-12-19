@@ -1,11 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { Modal } from '@r/widgets/modal';
+
+import ModActions from 'app/actions/ModTools';
 
 const T = React.PropTypes;
 
 const T = React.PropTypes;
 
 export function ModeratorModal(props) {
+  const {
+    onSpam,
+    onApprove,
+    onRemove
+  } = props;
+
   return (
     <div className='ModeratorModalWrapper'>
       <Modal
@@ -15,6 +25,9 @@ export function ModeratorModal(props) {
         <div onClick={ props.onClick }>
           { props.children }
         </div>
+        <DropdownRow icon='post_edit' text='Remove' onClick={ onRemove } />
+        <DropdownRow icon='post_edit' text='Spam' onClick={ onSpam } />
+        <DropdownRow icon='post_edit' text='Approve' onClick={ onApprove } />
       </Modal>
     </div>
   );
@@ -26,17 +39,18 @@ ModeratorModal.propTypes = {
 };
 
 const selector = createSelector(
-  (_, props) => props.postId => {
+  (_, props) => props.id,
+  (id) => {
     return {
-      postId,
+      id,
     };
   }
 );
 
-const mapDispatchToProps = (dispatch, { postId }) => ({
-  onSpam: () => dispatch(modActions.remove(postId, true)),
-  onApprove: () => dispatch(modActions.approve(postId)),
-  onRemove: () => dispatch(modActions.remove(postId, false)),
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onSpam: () => dispatch(modActions.remove(id, true)),
+  onApprove: () => dispatch(modActions.approve(id)),
+  onRemove: () => dispatch(modActions.remove(id, false)),
 });
 
 export default connect(selector, mapDispatchToProps)(ModeratorModal);
