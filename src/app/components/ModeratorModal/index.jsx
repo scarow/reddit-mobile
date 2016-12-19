@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Modal } from '@r/widgets/modal';
+import { DropdownRow } from 'app/components/Dropdown';
 
-import ModActions from 'app/actions/ModTools';
+import * as ModActions from 'app/actions/modTools';
 
 const T = React.PropTypes;
 
@@ -13,8 +14,12 @@ export function ModeratorModal(props) {
   const {
     onSpam,
     onApprove,
-    onRemove
+    onRemove,
+    onClick,
+    children,
   } = props;
+
+  console.log(props)
 
   return (
     <div className='ModeratorModalWrapper'>
@@ -22,8 +27,8 @@ export function ModeratorModal(props) {
         id={ props.id }
         className='DropdownModal ModeratorModal'
       >
-        <div onClick={ props.onClick }>
-          { props.children }
+        <div onClick={ onClick }>
+          { children }
         </div>
         <DropdownRow icon='post_edit' text='Remove' onClick={ onRemove } />
         <DropdownRow icon='post_edit' text='Spam' onClick={ onSpam } />
@@ -36,6 +41,9 @@ export function ModeratorModal(props) {
 ModeratorModal.propTypes = {
   id: T.string.isRequired,
   onClick: T.func,
+  onSpam: T.func.isRequired,
+  onApprove: T.func.isRequired,
+  onRemove: T.func.isRequired,
 };
 
 const selector = createSelector(

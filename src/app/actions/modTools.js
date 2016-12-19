@@ -5,22 +5,40 @@ const { ResponseError } = errors;
 
 import { apiOptionsFromState } from 'lib/apiOptionsFromState';
 
-export const remove = (postId, spam) => async (dispatch, getState) => {
+export const remove = (id, spam) => async (dispatch, getState) => {
   const apiOptions = apiOptionsFromState(getState());
 
   try {
-    await Modtools.remove(apiOptions, postId, spam);
+    await Modtools.remove(apiOptions, id, spam);
   } catch (e) {
     throw e;
   }
 };
 
-export const approve = (postId) => async (dispatch, getState) => {
-  const apiOptions = apiOptionsFromState(getState());
+export const MODERATOR_APPROVAL_PENDING = 'MODERATOR_APPROVAL_PENDING';
+export const approvalPending = () => ({
+  type: MODERATOR_APPROVAL_PENDING,
+});
 
+export const MODERATOR_APPROVAL_ERROR = 'MODERATOR_APPROVAL_ERROR';
+export const approvalError = () => ({
+  type: MODERATOR_APPROVAL_ERROR,
+});
+
+export const MODERATOR_APPROVAL_SUCCESS = 'MODERATOR_APPROVAL_SUCCESS';
+export const approvalSuccess = () => ({
+  type: MODERATOR_APPROVAL_SUCCESS,
+});
+
+export const approve = (id) => async (dispatch, getState) => {
+  const apiOptions = apiOptionsFromState(getState());
+  console.log('here')
+  dispatch(approvalPending());
   try {
-    await Modtools.approve(apiOptions, postId);
+    await Modtools.approve(apiOptions, id);
+    dispatch(approvalSuccess());
   } catch (e) {
+    dispatch(approvalError());
     throw e;
   }
 };
