@@ -26,6 +26,7 @@ export const apiOptionsFromState = state => {
   if (!state.platform.shell) {
     options = {
       ...options,
+      origin: 'http://reddit.local',
       queryParams: {
         redditWebClient: 'mweb2x',
       },

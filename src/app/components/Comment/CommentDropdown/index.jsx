@@ -18,6 +18,9 @@ export default function CommentDropdown(props) {
     onReportComment,
     onToggleModal,
     isSubredditModerator,
+    isRemoved,
+    isSpam,
+    isApproved,
   } = props;
 
   const userIsAuthor = commentAuthor === username;
@@ -45,7 +48,13 @@ export default function CommentDropdown(props) {
 
   if (isSubredditModerator) {
     modal = (
-      <ModeratorModal id={ id } onClick={ onToggleModal }>
+      <ModeratorModal
+        id={ id }
+        onClick={ onToggleModal }
+        isRemoved={ isRemoved }
+        isApproved={ isApproved }
+        isSpam={ isSpam }
+      >
         { modalContent }
       </ModeratorModal>
     );
@@ -71,6 +80,9 @@ CommentDropdown.propTypes = {
   onToggleSave: T.func,
   onReportComment: T.func.isRequired,
   isSubredditModerator: T.bool.isRequired,
+  isSaved: T.bool,
+  isRemoved: T.bool,
+  isSpam: T.bool,
 };
 
 CommentDropdown.defaultProps = {

@@ -26,6 +26,9 @@ export default function CommentTools(props) {
     onReportComment,
     onToggleModal,
     isSubredditModerator,
+    isApproved,
+    isSpam,
+    isRemoved,
   } = props;
 
   const modalId = `comment-modal-${id}`;
@@ -38,7 +41,7 @@ export default function CommentTools(props) {
       { renderVote(id, score, scoreHidden, voteDirection, votingDisabled) }
       { renderDropdown(modalId, permalinkUrl, commentAuthor, username, saved,
                        onEdit, onDelete, onToggleSave, onReportComment, onToggleModal,
-                       isSubredditModerator) }
+                       isSubredditModerator, isApproved, isSpam, isRemoved) }
     </div>
   );
 }
@@ -59,6 +62,9 @@ CommentTools.propTypes = {
   onReportComment: T.func.isRequired,
   onReplyOpen: T.func,
   onToggleModal: T.func.isRequired,
+  isSpam: T.bool,
+  isRemoved: T.bool,
+  isApproved: T.bool,
 };
 
 CommentTools.defaultProps = {
@@ -119,6 +125,9 @@ const renderDropdown = (
   onReportComment,
   onToggleModal,
   isSubredditModerator,
+  isApproved,
+  isSpam,
+  isRemoved,
 ) => (
   <CommentDropdown
     id={ tooltipId }
@@ -132,5 +141,8 @@ const renderDropdown = (
     onReportComment={ onReportComment }
     onToggleModal={ onToggleModal }
     isSubredditModerator={ isSubredditModerator }
+    isApproved={ isApproved }
+    isSpam={ isSpam }
+    isRemoved={ isRemoved}
   />
 );

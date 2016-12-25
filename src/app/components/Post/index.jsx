@@ -63,6 +63,9 @@ Post.propTypes = {
   onReportPost: T.func.isRequired,
   onToggleModal: T.func.isRequired,
   onPostClick: T.func,
+  isApproved: T.bool,
+  isRemoved: T.bool,
+  isSpam: T.bool,
 };
 
 Post.defaultProps = {
@@ -127,6 +130,9 @@ export function Post(props) {
     z,
     onToggleModal,
     moderatingSubreddits,
+    isApproved,
+    isRemoved,
+    isSpam,
   } = props;
 
   const canExpand = post.preview && post.preview.images.length > 0 || !!post.oembed;
@@ -234,6 +240,9 @@ export function Post(props) {
         onElementClick={ () => { onPostClick(post); onElementClick(); } }
         onToggleModal={ onToggleModal }
         isSubredditModerator= { isSubredditModerator }
+        isApproved={ isApproved }
+        isRemoved={ isRemoved }
+        isSpam={ isSpam }
       />
     </article>
   );
@@ -252,6 +261,9 @@ const selector = createSelector(
   state => features.withContext({ state }).enabled(VARIANT_MIXED_VIEW),
   (state, props) => state.playingPosts[removePrefix(props.postId)],
   state => state.moderatingSubreddits,
+  (state, props) => state.posts[props.postId].spam,
+  (state, props) => state.posts[props.postId].approved,
+  (state, props) => state.posts[props.postId].removed,
   (
     user,
     postId,
@@ -264,7 +276,10 @@ const selector = createSelector(
     inTitleExpandoExp,
     inMixedViewExp,
     isPlaying,
-    moderatingSubreddits
+    moderatingSubreddits,
+    isSpam,
+    isApproved,
+    isRemoved,
   ) => {
     const editing = !!editingState;
     const editPending = editing && editingState.pending;
@@ -283,6 +298,9 @@ const selector = createSelector(
       inMixedViewExp,
       isPlaying,
       moderatingSubreddits,
+      isSpam,
+      isApproved,
+      isRemoved,
     };
   }
 );

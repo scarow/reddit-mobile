@@ -28,6 +28,9 @@ export default function PostDropdown(props) {
     onToggleSave,
     onToggleModal,
     isSubredditModerator,
+    isRemoved,
+    isApproved,
+    isSpam,
   } = props;
 
   const modalContent = [
@@ -42,19 +45,25 @@ export default function PostDropdown(props) {
 
   let modal;
 
-  if (isSubredditModerator) {
+  // if (isSubredditModerator) {
     modal = (
-      <ModeratorModal id={ id } onClick={ onToggleModal }>
+      <ModeratorModal
+        id={ id }
+        onClick={ onToggleModal }
+        isRemoved={ isRemoved }
+        isApproved={ isApproved }
+        isSpam={ isSpam }
+      >
         { modalContent }
       </ModeratorModal>
     );
-  } else {
-    modal = (
-      <DropdownModal id={ id } onClick={ onToggleModal }>
-        { modalContent }
-      </DropdownModal>
-    );
-  }
+  // } else {
+  //   modal = (
+  //     <DropdownModal id={ id } onClick={ onToggleModal }>
+  //       { modalContent }
+  //     </DropdownModal>
+  //   );
+  // }
 
   return modal;
 }
@@ -72,6 +81,9 @@ PostDropdown.propTypes = {
   onReportPost: T.func.isRequired,
   onToggleEdit: T.func,
   onToggleModal: T.func,
+  isRemoved: T.bool,
+  isApproved: T.bool,
+  isSpam: T.bool,
 };
 
 PostDropdown.defaultProps = {
