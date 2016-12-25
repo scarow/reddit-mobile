@@ -45,7 +45,7 @@ export default function PostDropdown(props) {
 
   let modal;
 
-  // if (isSubredditModerator) {
+  if (isSubredditModerator) {
     modal = (
       <ModeratorModal
         id={ id }
@@ -57,13 +57,13 @@ export default function PostDropdown(props) {
         { modalContent }
       </ModeratorModal>
     );
-  // } else {
-  //   modal = (
-  //     <DropdownModal id={ id } onClick={ onToggleModal }>
-  //       { modalContent }
-  //     </DropdownModal>
-  //   );
-  // }
+  } else {
+    modal = (
+      <DropdownModal id={ id } onClick={ onToggleModal }>
+        { modalContent }
+      </DropdownModal>
+    );
+  }
 
   return modal;
 }
