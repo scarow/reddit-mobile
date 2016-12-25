@@ -98,7 +98,7 @@ export class ModeratorModal extends React.Component {
           <div onClick={ this.props.onClick }>
             { this.props.children }
             <DropdownRow icon='delete_remove' text='Remove' onClick={ this.doRemove } isSelected={ this.state.isRemoved }/>
-            <DropdownRow icon='spam' text='Spam' onClick={ this.doSpam } isSelected={ this.state.isSpam }/>
+            <DropdownRow icon='spam' text='Spam' onClick={ this.doSpam } isSelected={ this.state.isSpam && !this.state.isRemoved }/>
             <DropdownRow icon='check-circled' text='Approve' onClick={ this.doApprove } isSelected={ this.state.isApproved }/>
           </div>
         </Modal>
