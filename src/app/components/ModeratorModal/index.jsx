@@ -1,3 +1,4 @@
+import './styles.less';
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -97,9 +98,11 @@ export class ModeratorModal extends React.Component {
         >
           <div onClick={ this.props.onClick }>
             { this.props.children }
-            <DropdownRow icon='delete_remove' text='Remove' onClick={ this.doRemove } isSelected={ this.state.isRemoved }/>
-            <DropdownRow icon='spam' text='Spam' onClick={ this.doSpam } isSelected={ this.state.isSpam && !this.state.isRemoved }/>
-            <DropdownRow icon='check-circled' text='Approve' onClick={ this.doApprove } isSelected={ this.state.isApproved }/>
+            <div className='ModeratorModalRowWrapper'>
+              <DropdownRow icon='delete_remove' text='Remove' onClick={ this.doRemove } isSelected={ this.state.isRemoved }/>
+              <DropdownRow icon='spam' text='Spam' onClick={ this.doSpam } isSelected={ this.state.isSpam && !this.state.isRemoved }/>
+              <DropdownRow icon='check-circled' text='Approve' onClick={ this.doApprove } isSelected={ this.state.isApproved }/>
+            </div>
           </div>
         </Modal>
       </div>
