@@ -60,31 +60,37 @@ export class ModeratorModal extends React.Component {
   }
 
   doRemove = () => {
-    this.setState({
-      isRemoved: true,
-      isSpam: false,
-      isApproved: true,
-    });
-    this.props.onRemove();
+    if (!this.state.isRemoved) {
+      this.setState({
+        isRemoved: true,
+        isSpam: false,
+        isApproved: true,
+      });
+      this.props.onRemove();
+    }
   }
 >>>>>>> WIP
 
   doSpam = () => {
-    this.setState({
-      isRemoved: false,
-      isApproved: false,
-      isSpam: true
-    });
-    this.props.onSpam();
+    if (!this.state.isSpam) {
+      this.setState({
+        isRemoved: false,
+        isApproved: false,
+        isSpam: true,
+      });
+      this.props.onSpam();
+    }
   }
 
   doApprove = () => {
-    this.setState({
-      isRemoved: false,
-      isSpam: false,
-      isApproved: true
-    });
-    this.props.onApprove();
+    if (!this.state.isApproved) {
+      this.setState({
+        isRemoved: false,
+        isSpam: false,
+        isApproved: true,
+      });
+      this.props.onApprove();
+    }
   }
 
   render() {
