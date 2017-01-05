@@ -64,8 +64,11 @@ export const remove = (id, spam) => async (dispatch, getState) => {
     await Modtools.remove(apiOptions, id, spam);
     dispatch(removalSuccess(spam));
   } catch (e) {
-    dispatch(removalError(spam));
-    throw e;
+    if (e instanceof ResponseError) {
+      dispatch(removalError(e));
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -77,8 +80,11 @@ export const approve = (id) => async (dispatch, getState) => {
     await Modtools.approve(apiOptions, id);
     dispatch(approvalSuccess());
   } catch (e) {
-    dispatch(approvalError());
-    throw e;
+    if (e instanceof ResponseError) {
+      dispatch(approvalError(e));
+    } else {
+      throw e;
+    }
   }
 };
 
