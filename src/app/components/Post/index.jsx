@@ -223,6 +223,9 @@ export function Post(props) {
           onElementClick={ () => { onPostClick(post); onElementClick(); } }
           titleOpensExpando={ inTitleExpandoExp && canExpand }
           onTapExpand={ toggleExpanded }
+          isApproved={ isApproved }
+          isRemoved={ isRemoved }
+          isSpam={ isSpam }
         />
       </div>
       { contentOrNil }

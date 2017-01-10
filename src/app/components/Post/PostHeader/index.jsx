@@ -59,6 +59,18 @@ const PROMOTED_FLAIR = (
   <span className='PostHeader__promoted-flair'>PROMOTED</span>
 );
 
+const APPROVED_FLAIR = (
+  <span className='icon icon-check-circled green' />
+);
+
+const REMOVED_FLAIR = (
+  <span className='icon icon-delete_remove ban-red' />
+);
+
+const SPAM_FLAIR = (
+  <span className='icon icon-spam nsfw-salmon' />
+);
+
 PostHeader.propTypes = {
   post: T.instanceOf(PostModel),
   single: T.bool.isRequired,
@@ -72,6 +84,9 @@ PostHeader.propTypes = {
   showLinksInNewTab: T.bool.isRequired,
   onElementClick: T.func.isRequired,
   titleOpensExpando: T.bool.isRequired,
+  isApproved: T.bool.isRequired,
+  isRemoved: T.bool.isRequired,
+  isSpam: T.bool.isSpam,
 };
 
 function postTextColorClass(distinguished) {
@@ -188,6 +203,20 @@ function renderPostFlair(post, single) {
   );
 }
 
+function renderApprovalStatusFlair(isApproved, isRemoved, isSpam) {
+  if (!(isApproved || isRemoved || isSpam)) {
+    return null;
+  }
+
+  return (
+    <span className='PostHeader__approval-status-flair'>
+      { isApproved ? APPROVED_FLAIR : null }
+      { isRemoved ? REMOVED_FLAIR : null }
+      { isSpam ? SPAM_FLAIR : null }
+    </span>
+  );
+}
+
 function renderPromotedUserPostDescriptor({ author, promotedUrl, promotedDisplayName }) {
   const displayAuthor = promotedDisplayName || author;
   const urlProps = {
@@ -219,6 +248,9 @@ function renderPostDescriptor(
   hideSubredditLabel,
   hideWhen,
   isPromotedUserPost,
+  isApproved,
+  isRemoved,
+  isSpam,
 ) {
   const {
     distinguished,
@@ -247,6 +279,7 @@ function renderPostDescriptor(
     authorOrNil,
     !hideSubredditLabel && flairOrNil,
   ]);
+  const approvalStatusFlair = renderApprovalStatusFlair(isApproved, isRemoved, isSpam)
 
   return (
     <div className='PostHeader__post-descriptor-line'>
@@ -257,6 +290,7 @@ function renderPostDescriptor(
             isPromotedUserPost ? promotedUserPostDescriptor : normalPostDescriptor
           }
         />
+        { approvalStatusFlair }
       </div>
     </div>
   );
@@ -388,6 +422,9 @@ export default function PostHeader(props) {
     onElementClick,
     titleOpensExpando,
     onTapExpand,
+    isApproved,
+    isRemoved,
+    isSpam,
   } = props;
 
   const showSourceLink = showingLink && !renderMediaFullbleed;
@@ -403,6 +440,9 @@ export default function PostHeader(props) {
           hideSubredditLabel,
           hideWhen,
           isPromotedUserPost,
+          isApproved,
+          isRemoved,
+          isSpam,
         )
       }
       { renderPostTitleLink(post, showLinksInNewTab, onElementClick,
