@@ -1,45 +1,47 @@
-import { endpoints, collections, errors } from '@r/api-client';
+import { models, endpoints, collections, errors } from '@r/api-client';
 const { Modtools } = endpoints;
 const { ModeratingSubreddits } = collections;
 const { ResponseError } = errors;
 
 import { apiOptionsFromState } from 'lib/apiOptionsFromState';
 
-export const MODERATOR_REMOVAL_PENDING = 'MODERATOR_REMOVAL_PENDING';
-export const MODERATOR_REMOVAL_ERROR = 'MODERATOR_REMOVAL_ERROR';
-export const MODERATOR_REMOVAL_SUCCESS = 'MODERATOR_REMOVAL_SUCCESS';
-export const MODERATOR_APPROVAL_PENDING = 'MODERATOR_APPROVAL_PENDING';
-export const MODERATOR_APPROVAL_ERROR = 'MODERATOR_APPROVAL_ERROR';
-export const MODERATOR_APPROVAL_SUCCESS = 'MODERATOR_APPROVAL_SUCCESS';
+export const MODTOOLS_REMOVAL_PENDING = 'MODTOOLS_REMOVAL_PENDING';
+export const MODTOOLS_REMOVAL_ERROR = 'MODTOOLS_REMOVAL_ERROR';
+export const MODTOOLS_REMOVAL_SUCCESS = 'MODTOOLS_REMOVAL_SUCCESS';
+export const MODTOOLS_APPROVAL_PENDING = 'MODTOOLS_APPROVAL_PENDING';
+export const MODTOOLS_APPROVAL_ERROR = 'MODTOOLS_APPROVAL_ERROR';
+export const MODTOOLS_APPROVAL_SUCCESS = 'MODTOOLS_APPROVAL_SUCCESS';
 export const FETCHING_MODERATING_SUBREDDITS = 'FETCHING_MODERATING_SUBREDDITS';
 export const RECEIVED_MODERATING_SUBREDDITS = 'RECEIVED_MODERATING_SUBREDDITS';
 export const FETCH_FAILED_MODERATING_SUBREDDITS = 'FETCH_FAILED_MODERATING_SUBREDDITS';
 
 export const removalPending = (spam) => ({
-  type: MODERATOR_REMOVAL_PENDING,
+  type: MODTOOLS_REMOVAL_PENDING,
   spam: spam,
 });
 
 export const removalError = (spam) => ({
-  type: MODERATOR_REMOVAL_ERROR,
+  type: MODTOOLS_REMOVAL_ERROR,
   spam: spam,
 });
 
-export const removalSuccess = (spam) => ({
-  type: MODERATOR_REMOVAL_SUCCESS,
-  spam: spam,
+export const removalSuccess = (spam, thing) => ({
+  type: MODTOOLS_REMOVAL_SUCCESS,
+  spam,
+  thing,
 });
 
 export const approvalPending = () => ({
-  type: MODERATOR_APPROVAL_PENDING,
+  type: MODTOOLS_APPROVAL_PENDING,
 });
 
 export const approvalError = () => ({
-  type: MODERATOR_APPROVAL_ERROR,
+  type: MODTOOLS_APPROVAL_ERROR,
 });
 
-export const approvalSuccess = () => ({
-  type: MODERATOR_APPROVAL_SUCCESS,
+export const approvalSuccess = (thing) => ({
+  type: MODTOOLS_APPROVAL_SUCCESS,
+  thing,
 });
 
 export const fetchingSubs = () => ({
@@ -57,12 +59,16 @@ export const fetchSubsFailed = error => ({
 });
 
 export const remove = (id, spam) => async (dispatch, getState) => {
-  const apiOptions = apiOptionsFromState(getState());
+  const state = getState();
+  const apiOptions = apiOptionsFromState(state);
+  const type = models.ModelTypes.thingType(id);
+  const thing = state[`${type}s`][id];
 
   dispatch(removalPending(spam));
+
   try {
     await Modtools.remove(apiOptions, id, spam);
-    dispatch(removalSuccess(spam));
+    dispatch(removalSuccess(spam, thing));
   } catch (e) {
     if (e instanceof ResponseError) {
       dispatch(removalError(e));
@@ -72,13 +78,17 @@ export const remove = (id, spam) => async (dispatch, getState) => {
   }
 };
 
-export const approve = (id) => async (dispatch, getState) => {
-  const apiOptions = apiOptionsFromState(getState());
+export const approve = (id, type) => async (dispatch, getState) => {
+  const state = getState();
+  const apiOptions = apiOptionsFromState(state);
+  const type = models.ModelTypes.thingType(id);
+  const thing = state[`${type}s`][id];
 
   dispatch(approvalPending());
+
   try {
     await Modtools.approve(apiOptions, id);
-    dispatch(approvalSuccess());
+    dispatch(approvalSuccess(thing));
   } catch (e) {
     if (e instanceof ResponseError) {
       dispatch(approvalError(e));

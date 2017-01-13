@@ -1,11 +1,28 @@
+@import (reference) '~app/less/variables.less';
+
+.ModeratorModal {
+  top: 12%;
+}
+
 .ModeratorModalRowWrapper {
+  border-top: 1px solid @pale-grey;
   display: flex;
 
   > .DropdownRow {
-    width: 33.33%;
-    width: calc(100% / 3);
-    text-align: center;
+      width: 33.33%;
+      width: calc(100% / 3);
+      text-align: center;
+    }
+  
+  .DropdownRow:last { 
+    flex-grow: 1;
+    padding-right: 5px;
   }
 
-  .DropdownRow:last { flex-grow: 1; }
+  .DropdownRow__icon {
+    margin-left: 8px;
+    text-align: left;
+    width: 30px;
+  }
+
 }
