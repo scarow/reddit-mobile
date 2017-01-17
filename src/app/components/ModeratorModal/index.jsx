@@ -28,6 +28,7 @@ export class ModeratorModal extends React.Component {
   render() {
     let bannerText;
     let approvalStatus;
+    let banner;
 
     if (this.props.isSpam) {
       bannerText = `Removed as spam by ${this.props.removedBy}`;
@@ -40,13 +41,15 @@ export class ModeratorModal extends React.Component {
       approvalStatus = 'approved';
     }
 
-    const banner = (
-      <div className={`ModeratorModal__banner ${approvalStatus}`}>
-        <DropdownRow
-          text={ bannerText }
-        />
-      </div>
-    )
+    if (approvalStatus && bannerText) {
+      banner = (
+        <div className={`ModeratorModal__banner ${approvalStatus}`}>
+          <DropdownRow
+            text={ bannerText }
+          />
+        </div>
+      )
+    }
 
     return (
       <div className='ModeratorModalWrapper'>
