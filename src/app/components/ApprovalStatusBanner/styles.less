@@ -1,0 +1,49 @@
+@import (reference) '~app/less/variables.less';
+
+.ApprovalStatusBanner {
+  font-weight: bold;
+
+  &.moderatorModal {
+    &.spam {
+      color: @nsfw-salmon;
+    }
+
+    &.removed {
+      color: @ban-red;
+    }
+
+    &.approved {
+      color: @green;
+    }
+  }
+
+  &.postHeader {
+    color: white;
+
+    &.spam {
+      .DropdownRow {
+        background-color: @nsfw-salmon;
+      }
+    }
+
+    &.removed {
+      .DropdownRow {
+        background-color: @ban-red;
+      }
+    }
+
+    &.approved {
+      .DropdownRow {
+        background-color: @green;
+      }
+    }
+  }
+
+  .DropdownRow {
+    padding-left: 15px;
+
+    &__text {
+      display: inline;
+    }
+  }
+}

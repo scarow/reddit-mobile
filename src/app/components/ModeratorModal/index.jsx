@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Modal } from '@r/widgets/modal';
 import { DropdownRow } from 'app/components/Dropdown';
+import { ApprovalStatusBanner } from 'app/components/ApprovalStatusBanner';
 
 import * as modActions from 'app/actions/modTools';
 
@@ -26,38 +27,17 @@ export class ModeratorModal extends React.Component {
   }
 
   render() {
-    let bannerText;
-    let approvalStatus;
-    let banner;
-
-    if (this.props.isSpam) {
-      bannerText = `Removed as spam by ${this.props.removedBy}`;
-      approvalStatus = 'spam';
-    } else if (this.props.isRemoved) {
-      bannerText = `Removed by ${this.props.removedBy}`;
-      approvalStatus = 'removed';
-    } else if (this.props.isApproved) {
-      bannerText = `Approved by ${this.props.approvedBy}`;
-      approvalStatus = 'approved';
-    }
-
-    if (approvalStatus && bannerText) {
-      banner = (
-        <div className={`ModeratorModal__banner ${approvalStatus}`}>
-          <DropdownRow
-            text={ bannerText }
-          />
-        </div>
-      )
-    }
-
     return (
       <div className='ModeratorModalWrapper'>
         <Modal
           id={ this.props.modalId || this.props.id }
           className='DropdownModal ModeratorModal'
         >
-          { banner }
+          <ApprovalStatusBanner
+            status={ this.props.isSpam ? 'spam' : this.props.isRemoved ? 'removed' : this.props.isApproved ? 'approved' : null}
+            statusBy={ (this.props.isSpam || this.props.isRemoved) ? this.props.removedBy : (this.props.isApproved) ? this.props.approvedBy : null}
+            pageName={ 'moderatorModal' }
+          />
           <div onClick={ this.props.onClick }>
             { this.props.children }
             <div className='ModeratorModalRowWrapper'>

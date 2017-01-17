@@ -15,6 +15,7 @@ import {
 } from '../postUtils';
 
 import OutboundLink from 'app/components/OutboundLink';
+import { ApprovalStatusBanner } from 'app/components/ApprovalStatusBanner';
 
 const T = React.PropTypes;
 
@@ -421,8 +422,16 @@ export default function PostHeader(props) {
   const showSourceLink = showingLink && !renderMediaFullbleed;
   const sizeClass = `${compact ? 'size-compact' : ''}`;
   const thumbnailClass = `${nextToThumbnail ? 'm-thumbnail-margin' : ''}`;
+  const approvalStatus = post.approved ? 'approved' : post.removed ? 'removed' : post.spam ? spam : null;
+  const statusBy = post.approved ? post.approvedBy : (post.removed || post.spam) ? post.removedBy : null;
+
   return (
     <header className={ `PostHeader ${sizeClass} ${thumbnailClass}` }>
+      <ApprovalStatusBanner
+        status={ approvalStatus }
+        statusBy={ statusBy }
+        pageName={ 'postHeader' }
+      />
       {
         renderPostDescriptor(
           post,

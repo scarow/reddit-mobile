@@ -1,5 +1,4 @@
 @import (reference) '~app/less/variables.less';
-@import (reference) '~app/less/themes/themeify';
 
 .ModeratorModal {
   top: 7%;
@@ -26,28 +25,4 @@
     width: 30px;
   }
 
-}
-
-.ModeratorModal__banner {
-  font-weight: bold;
-
-  &.spam {
-    color: @nsfw-salmon;
-  }
-
-  &.removed {
-    color: @ban-red;
-  }
-
-  &.approved {
-    color: @green;
-  }
-
-  .DropdownRow {
-    padding-left: 15px;
-
-    &__text {
-      display: inline;
-    }
-  }
 }
