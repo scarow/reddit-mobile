@@ -17,58 +17,50 @@ export class ModeratorModal extends React.Component {
     onSpam: T.func.isRequired,
     onApprove: T.func.isRequired,
     onRemove: T.func.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSpam: props.isSpam,
-      isRemoved: props.isRemoved,
-      isApproved: props.isApproved,
-    };
-  }
-
-  doRemove = () => {
-    this.setState({
-      isRemoved: true,
-      isSpam: false,
-      isApproved: true,
-    });
-    this.props.onRemove();
-  }
-
-  doSpam = () => {
-    this.setState({
-      isRemoved: false,
-      isApproved: false,
-      isSpam: true
-    });
-    this.props.onSpam();
-  }
-
-  doApprove = () => {
-    this.setState({
-      isRemoved: false,
-      isSpam: false,
-      isApproved: true
-    });
-    this.props.onApprove();
+    isApproved: T.bool.isRequired,
+    isRemoved: T.bool.isRequired,
+    isSpam: T.bool.isRequired,
+    modalId: T.string,
+    removedBy: T.string,
+    approvedBy: T.string,
   }
 
   render() {
+    let bannerText;
+    let approvalStatus;
+
+    if (this.props.isSpam) {
+      bannerText = `Removed as spam by ${this.props.removedBy}`;
+      approvalStatus = 'spam';
+    } else if (this.props.isRemoved) {
+      bannerText = `Removed by ${this.props.removedBy}`;
+      approvalStatus = 'removed';
+    } else if (this.props.isApproved) {
+      bannerText = `Approved by ${this.props.approvedBy}`;
+      approvalStatus = 'approved';
+    }
+
+    const banner = (
+      <div className={`ModeratorModal__banner ${approvalStatus}`}>
+        <DropdownRow
+          text={ bannerText }
+        />
+      </div>
+    )
+
     return (
       <div className='ModeratorModalWrapper'>
         <Modal
-          id={ this.props.id }
+          id={ this.props.modalId || this.props.id }
           className='DropdownModal ModeratorModal'
         >
+          { banner }
           <div onClick={ this.props.onClick }>
             { this.props.children }
             <div className='ModeratorModalRowWrapper'>
-              <DropdownRow icon='delete_remove' text='Remove' onClick={ this.doRemove } isSelected={ this.state.isRemoved }/>
-              <DropdownRow icon='spam' text='Spam' onClick={ this.doSpam } isSelected={ this.state.isSpam }/>
-              <DropdownRow icon='check-circled' text='Approve' onClick={ this.doApprove } isSelected={ this.state.isApproved }/>
+              <DropdownRow icon='delete_remove' text='Remove' onClick={ this.props.onRemove } isSelected={ this.props.isRemoved }/>
+              <DropdownRow icon='spam' text='Spam' onClick={ this.props.onSpam } isSelected={ this.props.isSpam }/>
+              <DropdownRow icon='check-circled' text='Approve' onClick={ this.props.onApprove } isSelected={ this.props.isApproved }/>
             </div>
           </div>
         </Modal>

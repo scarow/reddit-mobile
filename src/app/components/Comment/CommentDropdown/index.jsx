@@ -7,6 +7,7 @@ const T = React.PropTypes;
 
 export default function CommentDropdown(props) {
   const {
+    commentId,
     id,
     permalink,
     commentAuthor,
@@ -21,6 +22,8 @@ export default function CommentDropdown(props) {
     isRemoved,
     isSpam,
     isApproved,
+    approvedBy,
+    removedBy,
   } = props;
 
   const userIsAuthor = commentAuthor === username;
@@ -49,11 +52,14 @@ export default function CommentDropdown(props) {
   if (isSubredditModerator) {
     modal = (
       <ModeratorModal
-        id={ id }
+        id={ commentId }
+        modalId={ id } // this is hacky AF -- WHY DO WE NEED THIS? POSTS WORK WITHOUT IT
         onClick={ onToggleModal }
         isRemoved={ isRemoved }
         isApproved={ isApproved }
         isSpam={ isSpam }
+        approvedBy={ approvedBy }
+        removedBy={ removedBy }
       >
         { modalContent }
       </ModeratorModal>
@@ -71,6 +77,7 @@ export default function CommentDropdown(props) {
 
 CommentDropdown.propTypes = {
   id: T.string.isRequired,
+  commentId: T.string.isRequired,
   permalink: T.string.isRequired,
   commentAuthor: T.string.isRequired,
   username: T.string,
@@ -83,6 +90,8 @@ CommentDropdown.propTypes = {
   isSaved: T.bool,
   isRemoved: T.bool,
   isSpam: T.bool,
+  approvedBy: T.string,
+  removedBy: T.string,
 };
 
 CommentDropdown.defaultProps = {

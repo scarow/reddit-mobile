@@ -63,6 +63,9 @@ export function Comment(props) {
           highlight={ comment.id === highlightedComment }
           stickied={ comment.stickied }
           onToggleCollapse={ onToggleCollapse }
+          isApproved={ comment.approved }
+          isRemoved={ comment.removed }
+          isSPam={ comment.spam }
         />
       </div>
 
@@ -138,9 +141,6 @@ function renderTools(props) {
     votingDisabled,
     onToggleModal,
     moderatingSubreddits,
-    isSpam,
-    isRemoved,
-    isApproved,
   } = props;
 
   const className = cx('Comment__toolsContainer', 'clearfix', {
@@ -171,9 +171,11 @@ function renderTools(props) {
           votingDisabled={ votingDisabled }
           onToggleModal={ onToggleModal }
           isSubredditModerator={ isSubredditModerator }
-          isSpam={ isSpam }
-          isRemoved={ isRemoved }
-          isApproved={ isApproved }
+          isSpam={ comment.spam }
+          isRemoved={ comment.removed }
+          isApproved={ comment.approved }
+          approvedBy={ comment.approvedBy }
+          removedBy={ comment.bannedBy }
         />
       </div>
     </div>
@@ -306,9 +308,6 @@ const selector = createSelector(
   (state, props) => !!state.replying[props.commentId],
   (state, props) => state.editingText[props.commentId],
   state => state.moderatingSubreddits,
-  (state, props) => state.comments[props.commentId].spam,
-  (state, props) => state.comments[props.commentId].removed,
-  (state, props) => state.comments[props.commentId].approved,
   (
     user,
     currentPage,
@@ -318,9 +317,6 @@ const selector = createSelector(
     commentReplying,
     editingState,
     moderatingSubreddits,
-    isSpam,
-    isRemoved,
-    isApproved,
   ) => {
     const editing = !!editingState;
     const editPending = editing && editingState.pending;
@@ -338,9 +334,6 @@ const selector = createSelector(
       moreCommentStatus,
       highlightedComment: currentPage.urlParams.commentId,
       moderatingSubreddits,
-      isSpam,
-      isRemoved,
-      isApproved,
     };
   },
 );

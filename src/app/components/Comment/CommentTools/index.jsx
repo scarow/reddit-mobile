@@ -29,6 +29,8 @@ export default function CommentTools(props) {
     isApproved,
     isSpam,
     isRemoved,
+    approvedBy,
+    removedBy,
   } = props;
 
   const modalId = `comment-modal-${id}`;
@@ -39,9 +41,10 @@ export default function CommentTools(props) {
       { renderSeashells(modalId) }
       { renderDivider(props) }
       { renderVote(id, score, scoreHidden, voteDirection, votingDisabled) }
-      { renderDropdown(modalId, permalinkUrl, commentAuthor, username, saved,
+      { renderDropdown(id, modalId, permalinkUrl, commentAuthor, username, saved,
                        onEdit, onDelete, onToggleSave, onReportComment, onToggleModal,
-                       isSubredditModerator, isApproved, isSpam, isRemoved) }
+                       isSubredditModerator, isApproved, isSpam, isRemoved,
+                       approvedBy, removedBy) }
     </div>
   );
 }
@@ -65,6 +68,8 @@ CommentTools.propTypes = {
   isSpam: T.bool,
   isRemoved: T.bool,
   isApproved: T.bool,
+  approvedBy: T.string,
+  removedBy: T.string,
 };
 
 CommentTools.defaultProps = {
@@ -114,6 +119,7 @@ const renderDivider = () => (
 );
 
 const renderDropdown = (
+  commentId,
   tooltipId,
   permalink,
   commentAuthor,
@@ -128,8 +134,11 @@ const renderDropdown = (
   isApproved,
   isSpam,
   isRemoved,
+  approvedBy,
+  removedBy,
 ) => (
   <CommentDropdown
+    commentId={ commentId }
     id={ tooltipId }
     permalink={ permalink }
     commentAuthor={ commentAuthor }
@@ -143,6 +152,8 @@ const renderDropdown = (
     isSubredditModerator={ isSubredditModerator }
     isApproved={ isApproved }
     isSpam={ isSpam }
-    isRemoved={ isRemoved}
+    isRemoved={ isRemoved }
+    approvedBy={ approvedBy }
+    removedBy={ removedBy }
   />
 );

@@ -31,6 +31,8 @@ export default function PostDropdown(props) {
     isRemoved,
     isApproved,
     isSpam,
+    approvedBy,
+    removedBy,
   } = props;
 
   const modalContent = [
@@ -53,6 +55,8 @@ export default function PostDropdown(props) {
         isRemoved={ isRemoved }
         isApproved={ isApproved }
         isSpam={ isSpam }
+        approvedBy={ approvedBy }
+        removedBy={ removedBy }
       >
         { modalContent }
       </ModeratorModal>
@@ -84,6 +88,8 @@ PostDropdown.propTypes = {
   isRemoved: T.bool,
   isApproved: T.bool,
   isSpam: T.bool,
+  approvedBy: T.string,
+  removedBy: T.string,
 };
 
 PostDropdown.defaultProps = {

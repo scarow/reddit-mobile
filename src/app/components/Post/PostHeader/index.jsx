@@ -84,9 +84,6 @@ PostHeader.propTypes = {
   showLinksInNewTab: T.bool.isRequired,
   onElementClick: T.func.isRequired,
   titleOpensExpando: T.bool.isRequired,
-  isApproved: T.bool.isRequired,
-  isRemoved: T.bool.isRequired,
-  isSpam: T.bool.isSpam,
 };
 
 function postTextColorClass(distinguished) {
@@ -248,9 +245,6 @@ function renderPostDescriptor(
   hideSubredditLabel,
   hideWhen,
   isPromotedUserPost,
-  isApproved,
-  isRemoved,
-  isSpam,
 ) {
   const {
     distinguished,
@@ -279,7 +273,7 @@ function renderPostDescriptor(
     authorOrNil,
     !hideSubredditLabel && flairOrNil,
   ]);
-  const approvalStatusFlair = renderApprovalStatusFlair(isApproved, isRemoved, isSpam)
+  const approvalStatusFlair = renderApprovalStatusFlair(post.approved, post.removed, post.spam)
 
   return (
     <div className='PostHeader__post-descriptor-line'>
@@ -422,9 +416,6 @@ export default function PostHeader(props) {
     onElementClick,
     titleOpensExpando,
     onTapExpand,
-    isApproved,
-    isRemoved,
-    isSpam,
   } = props;
 
   const showSourceLink = showingLink && !renderMediaFullbleed;
@@ -440,9 +431,6 @@ export default function PostHeader(props) {
           hideSubredditLabel,
           hideWhen,
           isPromotedUserPost,
-          isApproved,
-          isRemoved,
-          isSpam,
         )
       }
       { renderPostTitleLink(post, showLinksInNewTab, onElementClick,
