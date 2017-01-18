@@ -75,17 +75,18 @@ export default function(state=DEFAULT, action={}) {
       if (thing.type === POST) {
         return mergeUpdatedModel(
           state,
-          { model: thing.set({
+          { 
+            model: thing.set({
               approved: true,
               removed: false,
               spam: false,
               approvedBy: username,
-            })
-          }
+            }),
+          },
         );
-      } else {
-        return state;
       }
+
+      return state;
     }
 
     case modToolActions.MODTOOLS_REMOVAL_SUCCESS: {
@@ -94,17 +95,18 @@ export default function(state=DEFAULT, action={}) {
       if (thing.type === POST) {
         return mergeUpdatedModel(
           state,
-          { model: thing.set({
+          { 
+            model: thing.set({
               approved: false,
               removed: !spam,
               spam: spam,
               bannedBy: username,
-            })
-          }
+            }),
+          },
         );
-      } else {
-        return state;
       }
+
+      return state;
     }
 
     // Posts from the comments page api don't always have the same previews

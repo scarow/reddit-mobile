@@ -81,17 +81,18 @@ export default function(state=DEFAULT, action={}) {
       if (thing.type === COMMENT) {
         return mergeUpdatedModel(
           state,
-          { model: thing.set({
+          { 
+            model: thing.set({
               approved: true,
               removed: false,
               spam: false,
               approvedBy: username,
-            })
-          }
+            }),
+          },
         );
-      } else {
-        return state;
       }
+
+      return state;
     }
 
     case modToolActions.MODTOOLS_REMOVAL_SUCCESS: {
@@ -100,17 +101,18 @@ export default function(state=DEFAULT, action={}) {
       if (thing.type === COMMENT) {
         return mergeUpdatedModel(
           state,
-          { model: thing.set({
+          { 
+            model: thing.set({
               approved: false,
               removed: !spam,
               spam: spam,
               bannedBy: username,
-            })
-          }
+            }),
+          },
         );
-      } else {
-        return state;
       }
+
+      return state;
     }
 
     case commentActions.UPDATED_BODY: {

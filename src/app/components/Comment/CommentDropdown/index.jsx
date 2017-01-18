@@ -84,7 +84,6 @@ CommentDropdown.propTypes = {
   onToggleSave: T.func,
   onReportComment: T.func.isRequired,
   isSubredditModerator: T.bool.isRequired,
-  isSaved: T.bool,
   isRemoved: T.bool,
   isSpam: T.bool,
   approvedBy: T.string,

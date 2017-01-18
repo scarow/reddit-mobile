@@ -81,7 +81,7 @@ export const remove = (id, spam) => async (dispatch, getState) => {
   }
 };
 
-export const approve = (id, type) => async (dispatch, getState) => {
+export const approve = (id) => async (dispatch, getState) => {
   const state = getState();
   const apiOptions = apiOptionsFromState(state);
   const type = models.ModelTypes.thingType(id);

@@ -274,7 +274,7 @@ function renderPostDescriptor(
     authorOrNil,
     !hideSubredditLabel && flairOrNil,
   ]);
-  const approvalStatusFlair = renderApprovalStatusFlair(post.approved, post.removed, post.spam)
+  const approvalStatusFlair = renderApprovalStatusFlair(post.approved, post.removed, post.spam);
 
   return (
     <div className='PostHeader__post-descriptor-line'>
