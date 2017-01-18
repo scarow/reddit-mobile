@@ -21,7 +21,6 @@ export class ModeratorModal extends React.Component {
     isApproved: T.bool.isRequired,
     isRemoved: T.bool.isRequired,
     isSpam: T.bool.isRequired,
-    modalId: T.string,
     removedBy: T.string,
     approvedBy: T.string,
   }
@@ -30,7 +29,7 @@ export class ModeratorModal extends React.Component {
     return (
       <div className='ModeratorModalWrapper'>
         <Modal
-          id={ this.props.modalId || this.props.id }
+          id={ this.props.id }
           className='DropdownModal ModeratorModal'
         >
           <ApprovalStatusBanner

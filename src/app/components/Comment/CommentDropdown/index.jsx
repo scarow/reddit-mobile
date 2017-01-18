@@ -7,7 +7,6 @@ const T = React.PropTypes;
 
 export default function CommentDropdown(props) {
   const {
-    commentId,
     id,
     permalink,
     commentAuthor,
@@ -52,8 +51,7 @@ export default function CommentDropdown(props) {
   if (isSubredditModerator) {
     modal = (
       <ModeratorModal
-        id={ commentId }
-        modalId={ id } // this is hacky AF -- WHY DO WE NEED THIS? POSTS WORK WITHOUT IT
+        id={ id }
         onClick={ onToggleModal }
         isRemoved={ isRemoved }
         isApproved={ isApproved }
@@ -77,7 +75,6 @@ export default function CommentDropdown(props) {
 
 CommentDropdown.propTypes = {
   id: T.string.isRequired,
-  commentId: T.string.isRequired,
   permalink: T.string.isRequired,
   commentAuthor: T.string.isRequired,
   username: T.string,

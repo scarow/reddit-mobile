@@ -33,15 +33,13 @@ export default function CommentTools(props) {
     removedBy,
   } = props;
 
-  const modalId = `comment-modal-${id}`;
-
   return (
     <div className='CommentTools'>
       { commentingDisabled ? null : renderReply(props) }
-      { renderSeashells(modalId) }
+      { renderSeashells(id) }
       { renderDivider(props) }
       { renderVote(id, score, scoreHidden, voteDirection, votingDisabled) }
-      { renderDropdown(id, modalId, permalinkUrl, commentAuthor, username, saved,
+      { renderDropdown(id, permalinkUrl, commentAuthor, username, saved,
                        onEdit, onDelete, onToggleSave, onReportComment, onToggleModal,
                        isSubredditModerator, isApproved, isSpam, isRemoved,
                        approvedBy, removedBy) }
@@ -96,9 +94,9 @@ const renderReply = ({ commentReplying, onToggleReply }) => {
   );
 };
 
-const renderSeashells = modalId => (
+const renderSeashells = id => (
   <ModalTarget
-    id={ modalId }
+    id={ id }
   >
     <div className='CommentTools__more icon icon-seashells'/>
   </ModalTarget>
@@ -119,8 +117,7 @@ const renderDivider = () => (
 );
 
 const renderDropdown = (
-  commentId,
-  tooltipId,
+  id,
   permalink,
   commentAuthor,
   username,
@@ -138,8 +135,7 @@ const renderDropdown = (
   removedBy,
 ) => (
   <CommentDropdown
-    commentId={ commentId }
-    id={ tooltipId }
+    id={ id }
     permalink={ permalink }
     commentAuthor={ commentAuthor }
     username={ username }
