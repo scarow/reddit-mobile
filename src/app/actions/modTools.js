@@ -25,10 +25,11 @@ export const removalError = (spam) => ({
   spam: spam,
 });
 
-export const removalSuccess = (spam, thing) => ({
+export const removalSuccess = (spam, thing, username) => ({
   type: MODTOOLS_REMOVAL_SUCCESS,
   spam,
   thing,
+  username,
 });
 
 export const approvalPending = () => ({
@@ -39,9 +40,10 @@ export const approvalError = () => ({
   type: MODTOOLS_APPROVAL_ERROR,
 });
 
-export const approvalSuccess = (thing) => ({
+export const approvalSuccess = (thing, username) => ({
   type: MODTOOLS_APPROVAL_SUCCESS,
   thing,
+  username,
 });
 
 export const fetchingSubs = () => ({
@@ -63,12 +65,13 @@ export const remove = (id, spam) => async (dispatch, getState) => {
   const apiOptions = apiOptionsFromState(state);
   const type = models.ModelTypes.thingType(id);
   const thing = state[`${type}s`][id];
+  const username = state.user.name;
 
   dispatch(removalPending(spam));
 
   try {
     await Modtools.remove(apiOptions, id, spam);
-    dispatch(removalSuccess(spam, thing));
+    dispatch(removalSuccess(spam, thing, username));
   } catch (e) {
     if (e instanceof ResponseError) {
       dispatch(removalError(e));
@@ -83,12 +86,13 @@ export const approve = (id, type) => async (dispatch, getState) => {
   const apiOptions = apiOptionsFromState(state);
   const type = models.ModelTypes.thingType(id);
   const thing = state[`${type}s`][id];
+  const username = state.user.name;
 
   dispatch(approvalPending());
 
   try {
     await Modtools.approve(apiOptions, id);
-    dispatch(approvalSuccess(thing));
+    dispatch(approvalSuccess(thing, username));
   } catch (e) {
     if (e instanceof ResponseError) {
       dispatch(approvalError(e));

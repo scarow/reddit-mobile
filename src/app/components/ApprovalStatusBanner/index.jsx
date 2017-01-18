@@ -36,6 +36,5 @@ ApprovalStatusBanner.propTypes = {
 
 ApprovalStatusBanner.defaultProps = {
   status: null,
-  statusBy: null,
   pageName: null,
 };

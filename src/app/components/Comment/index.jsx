@@ -148,7 +148,7 @@ function renderTools(props) {
   });
 
   const isSubredditModerator = includes(moderatingSubreddits.names, comment.subreddit);
-  console.log(comment)
+
   return (
     <div className={ className }>
       <div className='Comment__tools'>

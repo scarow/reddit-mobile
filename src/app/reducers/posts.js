@@ -70,7 +70,7 @@ export default function(state=DEFAULT, action={}) {
     }
 
     case modToolActions.MODTOOLS_APPROVAL_SUCCESS: {
-      const { thing } = action;
+      const { thing, username } = action;
 
       if (thing.type === POST) {
         return mergeUpdatedModel(
@@ -78,7 +78,8 @@ export default function(state=DEFAULT, action={}) {
           { model: thing.set({
               approved: true,
               removed: false,
-              spam: false
+              spam: false,
+              approvedBy: username,
             })
           }
         );
@@ -88,15 +89,16 @@ export default function(state=DEFAULT, action={}) {
     }
 
     case modToolActions.MODTOOLS_REMOVAL_SUCCESS: {
-      const { thing } = action;
+      const { thing, spam, username } = action;
 
       if (thing.type === POST) {
         return mergeUpdatedModel(
           state,
           { model: thing.set({
               approved: false,
-              removed: !action.spam,
-              spam: action.spam
+              removed: !spam,
+              spam: spam,
+              bannedBy: username,
             })
           }
         );

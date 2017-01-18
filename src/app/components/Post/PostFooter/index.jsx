@@ -129,7 +129,7 @@ export default class PostFooter extends React.Component {
           isApproved={ post.approved }
           isSpam={ post.spam }
           approvedBy={ post.approvedBy }
-          removedBy={ post.removedBy }
+          removedBy={ post.bannedBy }
         />
       </footer>
     );

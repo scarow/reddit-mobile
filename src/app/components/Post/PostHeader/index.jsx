@@ -423,15 +423,18 @@ export default function PostHeader(props) {
   const sizeClass = `${compact ? 'size-compact' : ''}`;
   const thumbnailClass = `${nextToThumbnail ? 'm-thumbnail-margin' : ''}`;
   const approvalStatus = post.approved ? 'approved' : post.removed ? 'removed' : post.spam ? 'spam' : null;
-  const statusBy = post.approved ? post.approvedBy : (post.removed || post.spam) ? post.removedBy : null;
+  const statusBy = post.approved ? post.approvedBy : (post.removed || post.spam) ? post.bannedBy : null;
 
   return (
     <header className={ `PostHeader ${sizeClass} ${thumbnailClass}` }>
-      <ApprovalStatusBanner
-        status={ approvalStatus }
-        statusBy={ statusBy }
-        pageName={ 'postHeader' }
-      />
+      { single
+        ? <ApprovalStatusBanner
+          status={ approvalStatus }
+          statusBy={ statusBy }
+          pageName={ 'postHeader' }
+        />
+        : null
+      }
       {
         renderPostDescriptor(
           post,
