@@ -19,6 +19,8 @@ export function ApprovalStatusBanner(props) {
 
   const bannerText = `${status_text[status]} by ${statusBy}`;
 
+  if (!status || !statusBy) { return null; }
+
   return (
     <div className={ `ApprovalStatusBanner ${status} ${pageName}` }>
       <DropdownRow
