@@ -41,9 +41,9 @@ export class ModeratorModal extends React.Component {
           <div onClick={ this.props.onClick }>
             { this.props.children }
             <div className='ModeratorModalRowWrapper'>
-              <DropdownRow icon='delete_remove' text='Remove' onClick={ this.props.onRemove } isSelected={ this.props.isRemoved }/>
-              <DropdownRow icon='spam' text='Spam' onClick={ this.props.onSpam } isSelected={ this.props.isSpam }/>
-              <DropdownRow icon='check-circled' text='Approve' onClick={ this.props.onApprove } isSelected={ this.props.isApproved }/>
+              <DropdownRow className='remove' icon='delete_remove' text='Remove' onClick={ this.props.onRemove } isSelected={ this.props.isRemoved }/>
+              <DropdownRow className='spam' icon='spam' text='Spam' onClick={ this.props.onSpam } isSelected={ this.props.isSpam }/>
+              <DropdownRow className='approve' icon='check-circled' text='Approve' onClick={ this.props.onApprove } isSelected={ this.props.isApproved }/>
             </div>
           </div>
         </Modal>

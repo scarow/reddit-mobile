@@ -12,13 +12,17 @@
       width: 33.33%;
       width: calc(100% / 3);
       text-align: center;
+
+      &.spam {
+        width: 29%;
+      }
+
+      &.approve {
+        flex-grow: 1;
+        padding-right: 5px;
+      }
     }
   
-  .DropdownRow:last { 
-    flex-grow: 1;
-    padding-right: 5px;
-  }
-
   .DropdownRow__icon {
     margin-left: 8px;
     text-align: left;
