@@ -65,7 +65,7 @@ export function Comment(props) {
           onToggleCollapse={ onToggleCollapse }
           isApproved={ comment.approved }
           isRemoved={ comment.removed }
-          isSPam={ comment.spam }
+          isSpam={ comment.spam }
         />
       </div>
 
@@ -148,7 +148,7 @@ function renderTools(props) {
   });
 
   const isSubredditModerator = includes(moderatingSubreddits.names, comment.subreddit);
-
+  console.log(comment)
   return (
     <div className={ className }>
       <div className='Comment__tools'>

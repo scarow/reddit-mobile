@@ -422,7 +422,7 @@ export default function PostHeader(props) {
   const showSourceLink = showingLink && !renderMediaFullbleed;
   const sizeClass = `${compact ? 'size-compact' : ''}`;
   const thumbnailClass = `${nextToThumbnail ? 'm-thumbnail-margin' : ''}`;
-  const approvalStatus = post.approved ? 'approved' : post.removed ? 'removed' : post.spam ? spam : null;
+  const approvalStatus = post.approved ? 'approved' : post.removed ? 'removed' : post.spam ? 'spam' : null;
   const statusBy = post.approved ? post.approvedBy : (post.removed || post.spam) ? post.removedBy : null;
 
   return (

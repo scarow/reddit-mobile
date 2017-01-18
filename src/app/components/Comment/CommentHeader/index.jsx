@@ -9,15 +9,15 @@ const T = React.PropTypes;
 const separator = <div className='CommentHeader__separator'> • </div>;
 
 const APPROVED_FLAIR = (
-  <span className='icon icon-check-circled green' />
+  <td className='CommentHeader__approvalStatus icon icon-check-circled green' />
 );
 
 const REMOVED_FLAIR = (
-  <span className='icon icon-delete_remove ban-red' />
+  <td className='CommentHeader__approvalStatus icon icon-delete_remove ban-red' />
 );
 
 const SPAM_FLAIR = (
-  <span className='icon icon-spam nsfw-salmon' />
+  <td className='CommentHeader__approvalStatus icon icon-spam nsfw-salmon' />
 );
 
 function getAuthorIcon(authorType) {
@@ -136,12 +136,12 @@ export default function CommentHeader(props) {
             { renderCaron(collapsed, topLevel, dots, highlight) }
             { renderInfo(author, flair, created, authorType, highlight, stickied) }
             { gildCount ? renderGold(gildCount) : null }
+            { isApproved ? APPROVED_FLAIR : null }
+            { isRemoved ? REMOVED_FLAIR : null }
+            { isSpam ? SPAM_FLAIR : null }
           </tr>
         </tbody>
       </table>
-      { isApproved ? APPROVED_FLAIR : null }
-      { isRemoved ? REMOVED_FLAIR : null }
-      { isSpam ? SPAM_FLAIR : null }
     </div>
   );
 }
