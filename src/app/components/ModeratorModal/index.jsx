@@ -66,7 +66,7 @@ ModeratorModal.propTypes = {
   isSpam: T.bool.isRequired,
   removedBy: T.string,
   approvedBy: T.string,
-}
+};
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   onSpam: () => dispatch(modActions.remove(id, true)),
