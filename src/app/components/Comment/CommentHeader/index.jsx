@@ -169,4 +169,7 @@ CommentHeader.defaultProps = {
   dots: 0,
   highlight: false,
   stickied: false,
+  isApproved: false,
+  isRemoved: false,
+  isSpam: false,
 };
