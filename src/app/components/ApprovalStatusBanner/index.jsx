@@ -4,7 +4,7 @@ import { DropdownRow } from 'app/components/Dropdown';
 
 const T = React.PropTypes;
 
-const status_text = {
+const statusText = {
   spam: 'Removed as spam',
   removed: 'Removed',
   approved: 'Approved',
@@ -17,12 +17,12 @@ export function ApprovalStatusBanner(props) {
     pageName,
   } = props;
 
-  const bannerText = `${status_text[status]} by ${statusBy}`;
+  const bannerText = `${statusText[status]} by ${statusBy}`;
 
   if (!status || !statusBy) { return null; }
 
   return (
-    <div className={ `ApprovalStatusBanner ${status} ${pageName}` }>
+    <div className={ `ApprovalStatusBanner m-${status} ${pageName}` }>
       <DropdownRow
         text={ bannerText }
       />

@@ -14,9 +14,9 @@ import * as savedActions from 'app/actions/saved';
 import * as searchActions from 'app/actions/search';
 import * as voteActions from 'app/actions/vote';
 import * as mailActions from 'app/actions/mail';
+import * as modToolActions from 'app/actions/modTools';
 import * as similarPostsActions from 'app/actions/similarPosts';
 import * as subredditsToPostsByPostActions from 'app/actions/subredditsToPostsByPost';
-import * as modToolActions from 'app/actions/modTools';
 
 const DEFAULT = {};
 

@@ -86,6 +86,7 @@ CommentDropdown.propTypes = {
   isSubredditModerator: T.bool.isRequired,
   isRemoved: T.bool,
   isSpam: T.bool,
+  isApproved: T.bool,
   approvedBy: T.string,
   removedBy: T.string,
 };
@@ -97,4 +98,9 @@ CommentDropdown.defaultProps = {
   onDelete: () => {},
   onToggleSave: () => {},
   onToggleModal: () => {},
+  isRemoved: false,
+  isSpam: false,
+  isApproved: false,
+  approvedBy: null,
+  removedBy: null,
 };

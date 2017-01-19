@@ -53,8 +53,8 @@ export function DropdownRow(props) {
   });
 
   return (
-    <div className={ `DropdownRow ${props.className ? props.className : null}` } onClick={ props.onClick }>
-      <div className={ props.icon ? className : null } />
+    <div className={ `DropdownRow ${props.className ? props.className : ''}` } onClick={ props.onClick }>
+      <div className={ props.icon ? className : '' } />
       <div className='DropdownRow__text'>{ props.text }</div>
     </div>
   );
