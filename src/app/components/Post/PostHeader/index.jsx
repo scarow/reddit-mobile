@@ -277,14 +277,19 @@ function renderPostDescriptor(
   const approvalStatusFlair = renderApprovalStatusFlair(post.approved, post.removed, post.spam);
 
   return (
-    <div className='PostHeader__post-descriptor-line'>
-      <div className='PostHeader__post-descriptor-line-overflow'>
-        <span
-          className={ distinguishingCssClass }
-          children={
-            isPromotedUserPost ? promotedUserPostDescriptor : normalPostDescriptor
-          }
-        />
+    <div className='PostHeader__metadata-container'>
+      <div className='PostHeader__post-descriptor-line'>
+        <div className='PostHeader__post-descriptor-line-overflow'>
+          <span
+            className={ distinguishingCssClass }
+            children={
+              isPromotedUserPost ? promotedUserPostDescriptor : normalPostDescriptor
+            }
+          />
+          
+        </div>
+      </div>
+      <div className='PostHeader__metadata'>
         { approvalStatusFlair }
       </div>
     </div>
