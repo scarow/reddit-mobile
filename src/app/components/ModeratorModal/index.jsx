@@ -26,21 +26,21 @@ export class ModeratorModal extends React.Component {
             { this.props.children }
             <div className='ModeratorModalRowWrapper'>
               <DropdownRow
-                className='remove'
+                className='m-remove'
                 icon='delete_remove'
                 text='Remove'
                 onClick={ this.props.onRemove }
                 isSelected={ this.props.isRemoved }
               />
               <DropdownRow
-                className='spam'
+                className='m-spam'
                 icon='spam'
                 text='Spam'
                 onClick={ this.props.onSpam }
                 isSelected={ this.props.isSpam }
               />
               <DropdownRow
-                className='approve'
+                className='m-approve'
                 icon='check-circled'
                 text='Approve'
                 onClick={ this.props.onApprove }
