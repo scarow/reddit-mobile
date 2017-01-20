@@ -100,7 +100,7 @@ export default class PostFooter extends React.Component {
           <ModalTarget
             id={ post.name }
           >
-            <div className='PostFooter__dropdown-button PostFooter__hit-area icon icon-seashells'/>
+            <div className={`PostFooter__dropdown-button PostFooter__hit-area icon icon-${isSubredditModerator ? 'mod' : 'seashells'}`}/>
           </ModalTarget>
           <span className='PostFooter__vertical-divider' />
           <VotingBox

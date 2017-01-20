@@ -36,7 +36,7 @@ export default function CommentTools(props) {
   return (
     <div className='CommentTools'>
       { commentingDisabled ? null : renderReply(props) }
-      { renderSeashells(id) }
+      { renderSeashells(id, isSubredditModerator) }
       { renderDivider(props) }
       { renderVote(id, score, scoreHidden, voteDirection, votingDisabled) }
       { renderDropdown(id, permalinkUrl, commentAuthor, username, saved,
@@ -94,11 +94,11 @@ const renderReply = ({ commentReplying, onToggleReply }) => {
   );
 };
 
-const renderSeashells = id => (
+const renderSeashells = (id, isSubredditModerator) => (
   <ModalTarget
     id={ id }
   >
-    <div className='CommentTools__more icon icon-seashells'/>
+    <div className={`CommentTools__more icon icon-${isSubredditModerator ? 'mod' : 'seashells'}`}/>
   </ModalTarget>
 );
 
