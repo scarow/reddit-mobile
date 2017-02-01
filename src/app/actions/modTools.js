@@ -134,6 +134,9 @@ export const distinguish = (id, distinguishType) => async (dispatch, getState) =
 
 export const fetchModeratingSubreddits = () => async (dispatch, getState) => {
   const state = getState();
+  // don't fetch if we're not logged in
+  if (!state.session.accessToken) { return; }
+
   const apiOptions = apiOptionsFromState(state);
 
   const subredditsAlreadyFetched = (
